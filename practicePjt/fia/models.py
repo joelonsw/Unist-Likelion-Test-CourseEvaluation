@@ -24,7 +24,7 @@ class evaluation(models.Model):
     subject = models.CharField(default='주제', max_length=50)
     star = models.IntegerField(default=5)
     text = models.TextField()
-    password = models.IntegerField(default=0000, max_length=10)
+    password = models.IntegerField(default=0000)
 
 
 class Course(TimeStampedModel):
