@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'review.apps.ReviewConfig',
     'fia.apps.FiaConfig',
+    'import_export'
 ]
 
 MIDDLEWARE = [
