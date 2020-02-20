@@ -1,2 +1,14 @@
-*.pyc
+# Virtual Environment
 myvenv
+songvenv
+
+# cache
+__pycache__
+.pyc
+
+# settings
+.vscode
+
+# data base
+# db.sqlite3
+# dq.sqlite3-journal
