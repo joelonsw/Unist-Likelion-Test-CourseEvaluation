@@ -81,7 +81,9 @@
       <h5 class="card-title">{{fia_detail.name}}</h5>
       <h6 class="card-subtitle mb-2 text-muted">{{eval.star}} out of 5</h6>
       <p class="card-text">{{eval.text}}</p>
-      
+      <p>비밀번호(나중에 없애야함) : {{eval.password}}</p> 
+      <a href="{% url 'delete_request' fia_detail.id eval.id %}">삭제</a>
+      <a href="{% url 'update_request' fia_detail.id eval.id %}">수정</a>
     </div>
 </div>
   </div>

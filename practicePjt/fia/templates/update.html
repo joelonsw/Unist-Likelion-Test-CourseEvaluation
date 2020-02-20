@@ -68,7 +68,7 @@
 
 </div>
 
-<Form action="{% url 'save' fia_detail.id %}">
+<Form action="{% url 'updateFinal' fia_detail.id fia_eval.id  %}">
     <br>
     <h5>강의명 : {{fia_detail.name}}</h5>
     <h5>교수명 : {{fia_detail.prof}}</h5>
