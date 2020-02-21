@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from courses.models import Courses
+from fia.models import Course
 
 # Create your views here.
 def home(request):
-    courses = Courses.objects
-    return render(request, 'home.html', {'courses':courses})
+    courses = Course.objects
+    return render(request, 'home.html', {'courses': courses})

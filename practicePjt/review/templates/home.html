@@ -61,15 +61,16 @@
 
 <div class="course">
   {% for course in courses.all %}
+  
   <div class="coursebox">
     <div class = "coursename">{{course.course_name}}</div>
-    <div class = "courseid">{{course.course_id}}</div>
+    <div class = "courseid">{{course.course_code}}</div>
     <div class = "courseimg">
-      {% if course.image_number == '컴퓨터공학' %}
+      {% if course.subject == '컴퓨터공학' %}
       <img src="{% static 'image/computerscience.PNG' %}" alt="">
-      {% elif course.image_number == '기계공학' %}
+      {% elif course.subject == '기계공학' %}
       <img src="{% static 'image/machine.PNG' %}" alt="">
-      {% elif course.image_number == '화학' %}
+      {% elif course.subject == '화학' %}
       <img src="{% static 'image/chemistry.PNG' %}" alt="">
       {% endif %}
     </div>

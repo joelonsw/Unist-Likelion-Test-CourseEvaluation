@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'review.apps.ReviewConfig',
     'fia.apps.FiaConfig',
     'import_export',
-    'courses',
 ]
 
 MIDDLEWARE = [
