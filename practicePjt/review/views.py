@@ -1,5 +1,7 @@
 from django.shortcuts import render
+from courses.models import Courses
 
 # Create your views here.
 def home(request):
-    return render(request,'home.html')
+    courses = Courses.objects
+    return render(request, 'home.html', {'courses':courses})

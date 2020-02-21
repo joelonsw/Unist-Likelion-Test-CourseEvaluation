@@ -1,5 +1,6 @@
 from django.contrib import admin
 from import_export.admin import ImportExportActionModelAdmin
+from courses.models import Courses
 from .models import *
 
 # Register your models here.
@@ -8,3 +9,5 @@ from .models import *
 @admin.register(lecture, evaluation, Course)
 class ImportExport(ImportExportActionModelAdmin):
     pass
+
+admin.site.register(Courses)
