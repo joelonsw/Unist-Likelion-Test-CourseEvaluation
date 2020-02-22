@@ -34,18 +34,23 @@
     color: white;
     text-align: center;
     margin-top: 5vh;
+    font-family: Roboto;
+    font-weight: bold;
 }
 .searchline2{
     font-size: 30px;
     color: white;
     text-align: center;
     margin-top: 2vh;
+    font-family: Roboto;
+    font-weight: 500;
 }
 .course{
   margin-top: 40vh;
   display: flex;
   width: 80vw;
   flex-wrap: wrap;
+  margin-left: 6vw;
 }
 .coursebox{
   margin-left: 8vw;
@@ -59,10 +64,12 @@
   padding-left: 1vw;
   font-size: 30px;
   font-weight: 400;
+  font-family: Roboto;
 }
 .courseid{
   padding-left: 1vw;
   font-size: 20px;
+  font-family: Roboto;
 }
 .courseimg{
   float: right;
