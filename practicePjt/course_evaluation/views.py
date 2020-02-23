@@ -7,7 +7,6 @@ from .forms import *
 # Create your views here.
 
 
-<<<<<<< HEAD
 # def tset(request):
 #     form = SearchForm()
 #     return render(request, "course.html", {"form": form})
@@ -37,10 +36,6 @@ def evaluation(request, course_id):
 def save(request, course_id):
     course = get_object_or_404(Course, pk=course_id)
     new_eval = Evaluation.objects.create(course=course, grade=request.GET["grade"], review=request.GET["review"], password= request.GET["password"])
-    # # new_eval.course = str(course.course_name)
-    # new_eval.grade = request.GET["grade"]
-    # new_eval.review = request.GET["review"]
-    # new_eval.password = request.GET["password"]
     new_eval.save()
     return redirect("/course-evaluation/"+str(course.id))
     
@@ -98,12 +93,6 @@ def save(request, course_id):
 #     return render(
 #         request, "update.html", {"fia_detail": fia_detail, "fia_eval": fia_eval}
 #     )
-=======
-def tset(request):
-
-    form = SearchForm()
-    return render(request, "course.html", {"form": form})
->>>>>>> 6fb1ada492fea3c4e62c8c6b6b84e8aed0e0b259
 
 
 # def updateFinal(request, fiadetail_id, fiaeval_id):
