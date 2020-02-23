@@ -1,31 +1,19 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
-<<<<<<< HEAD
 
 from .models import Course, Evaluation
 from .serializers import CourseSerializer, EvluationSerializer
 
-=======
->>>>>>> 6e7f93f0de6ea360fd9e9c31ad2dca93a9f06b41
 
-from fia.models import Course
-from .serializers import CourseSerializer
-from django.shortcuts import render, get_object_or_404, redirect
-from .models import Course
-from .models import Evaluation
-from .forms import *
-from rest_framework.response import Response
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import AllowAny
+def home(request):
+    return render(request, "course.html")
 
-from .serializers import CourseSerializer
 
 @api_view(["POST"])
 @permission_classes([AllowAny])
-def tset(request):
+def search_course(request):
     course_code = request.data.get("course_code", "")
     course_name = request.data.get("course_name", "")
     course_professor = request.data.get("course_professor", "")
@@ -33,11 +21,17 @@ def tset(request):
 
     course = Course.objects.all()
     if course_code != "":
-        course = course.filter(course_code=course_code)
-
+        course = course.filter(course_code__contains=course_code)
+    if course_name != "":
+        course = course.filter(course_name__contains=course_name)
+    if course_professor != "":
+        course = course.filter(course_professor__contains=course_professor)
+    if course_semester != "":
+        course = course.filter(course_semester__contains=course_semester)
     course = CourseSerializer(course, many=True).data
-    return Response(course, status=200)
+
     # return render(request, "course.html", {"course": course})
+    return Response(course, status=200)
 
 
 @api_view(["POST"])
@@ -57,178 +51,72 @@ def create_course_evaluation(request, course_id):
     )
 
     evaluation = EvluationSerializer(evaluation).data
-    print("!")
     return Response(evaluation, status=200)
 
 
-# @api_view(["GET"])
-# @permission_classes([AllowAny])
-# def fetch_course_evaluation(request, course_id):
-#     course_id = request.GET.get("course_id")
-#     try:
-#         course = Course.objects.get(id=course_id)
-#     except Course.DoesNotExist:
-#         return Response({"message": "no such objects"}, status=404)
-#     evaluation = Evaluation.objects.filter(course=course_id)
-#     return render(request, "detail.html", {"course": course, "evaluation": evaluation})
-
-
-# def evaluation(request, course_id):
-#     course = get_object_or_404(Course, pk=course_id)
-#     return render(request, "evaluation_form.html", {"course": course})
-
-
-# def save(request, course_id):
-#     course = get_object_or_404(Course, pk=course_id)
-#     new_eval = Evaluation.objects.create(
-#         course=course,
-#         grade=request.GET["grade"],
-#         review=request.GET["review"],
-#         password=request.GET["password"],
-#     )
-#     new_eval.save()
-#     return redirect("/course-evaluation/" + str(course.id))
-
-# def save(request, fiadetail_id):
-#     fia_detail = get_object_or_404(lecture, pk=fiadetail_id)
-#     new_eval = evaluation()
-#     new_eval.subject = fia_detail.name
-#     new_eval.star = request.GET["star"]
-#     new_eval.text = request.GET["written"]
-#     new_eval.password = request.GET["password"]
-#     new_eval.save()
-#     return redirect("/fia/" + str(fia_detail.id))
-
-# def delete_request(request, fiadetail_id, fiaeval_id):
-#     fia_eval = get_object_or_404(evaluation, pk=fiaeval_id)
-#     fia_detail = get_object_or_404(lecture, pk=fiadetail_id)
-#     return render(
-#         request, "deletePassword.html", {"fia_detail": fia_detail, "fia_eval": fia_eval}
-#     )
-
-# def delete(request, fiadetail_id, fiaeval_id):
-#     fia_eval = get_object_or_404(evaluation, pk=fiaeval_id)
-#     fia_detail = get_object_or_404(lecture, pk=fiadetail_id)
-#     if fia_eval.password != int(request.GET["enteredPassword"]):
-#         return render(
-#             request,
-#             "deletePassword.html",
-#             {"fia_detail": fia_detail, "fia_eval": fia_eval},
-#         )
-#     fia_eval.delete()
-#     return redirect("/fia/" + str(fia_detail.id))
-
-# def update_request(request, fiadetail_id, fiaeval_id):
-#     fia_eval = get_object_or_404(evaluation, pk=fiaeval_id)
-#     fia_detail = get_object_or_404(lecture, pk=fiadetail_id)
-#     return render(
-#         request, "updatePassword.html", {"fia_detail": fia_detail, "fia_eval": fia_eval}
-#     )
-
-# def update(request, fiadetail_id, fiaeval_id):
-#     fia_eval = get_object_or_404(evaluation, pk=fiaeval_id)
-#     fia_detail = get_object_or_404(lecture, pk=fiadetail_id)
-#     if fia_eval.password != int(request.GET["enteredPassword"]):
-#         return render(
-#             request,
-#             "updatePassword.html",
-#             {"fia_detail": fia_detail, "fia_eval": fia_eval},
-#         )
-#     return render(
-#         request, "update.html", {"fia_detail": fia_detail, "fia_eval": fia_eval}
-#     )
-
-# return render(request, "course.html", {"data": data})
-def home(request):
-
-    return render(request, 'course.html')
-
-@api_view(["POST"])
+@api_view(["GET"])
 @permission_classes([AllowAny])
-def search_course(request):
-    course_code = request.data.get("course_code", "")
-    course_name = request.data.get("course_name", "")
-    course_professor = request.data.get("course_professor", "")
-    course_semester = request.data.get("course_semester", "")
+def fetch_course_evaluation(request, course_id):
+    course_id = request.GET.get("course_id")
+    try:
+        course = Course.objects.get(id=course_id)
+    except Course.DoesNotExist:
+        return Response({"message": "no such objects"}, status=404)
+    evaluation = Evaluation.objects.filter(course=course_id)
+    return render(request, "detail.html", {"course": course, "evaluation": evaluation})
 
-<<<<<<< HEAD
-# def updateFinal(request, fiadetail_id, fiaeval_id):
-#     fia_eval = get_object_or_404(evaluation, pk=fiaeval_id)
-#     fia_detail = get_object_or_404(lecture, pk=fiadetail_id)
-#     fia_eval.star = request.GET["star"]
-#     fia_eval.text = request.GET["written"]
-#     fia_eval.password = request.GET["password"]
-#     fia_eval.save()
-#     return redirect("/fia/" + str(fia_detail.id))
-=======
-    course = Course.objects.all()
-    if course_code != "":
-        course = course.filter(course_code__contains = course_code)
-    if course_name != "":
-        course = course.filter(course_name__contains = course_name)
-    if course_professor != "":
-        course = course.filter(course_professor__contains = course_professor)
-    if course_semester != "":
-        course = course.filter(course_semester__contains = course_semester)
-    course = CourseSerializer(course, many=True).data
 
-    return render(request,'course.html',{"course":course})
-    # return Response(course, status=200)
-   
 def detail(request, course_id):
     course = get_object_or_404(Course, pk=course_id)
     evaluation = Evaluation.objects.filter(course=course_id)
-    return render(
-        request, "detail.html", {"course":course , "evaluation":evaluation}
-    )
+    return render(request, "detail.html", {"course": course, "evaluation": evaluation})
 
 
 def evaluation(request, course_id):
     course = get_object_or_404(Course, pk=course_id)
     return render(request, "evaluation_form.html", {"course": course})
 
+
 def save(request, course_id):
     course = get_object_or_404(Course, pk=course_id)
-    new_eval = Evaluation.objects.create(course=course, grade=request.GET["grade"], review=request.GET["review"], password= request.GET["password"])
+    new_eval = Evaluation.objects.create(
+        course=course,
+        grade=request.GET["grade"],
+        review=request.GET["review"],
+        password=request.GET["password"],
+    )
     new_eval.save()
-    return redirect("/course-evaluation/"+str(course.id))
-    
+    return redirect("/course-evaluation/" + str(course.id))
+
 
 def delete_request(request, eval_id):
     evaluation = get_object_or_404(Evaluation, pk=eval_id)
-    msg = 'Delete'
-    return render( request, "Password.html", {"evaluation":evaluation, 'delete':msg} )
+    msg = "Delete"
+    return render(request, "Password.html", {"evaluation": evaluation, "delete": msg})
+
 
 def delete(request, eval_id):
     evaluation = get_object_or_404(Evaluation, pk=eval_id)
     if evaluation.password != int(request.GET["enteredPassword"]):
-        return render(
-            request,
-            "Password.html",
-            {"evaluation":evaluation},
-        )
+        return render(request, "Password.html", {"evaluation": evaluation},)
     evaluation.delete()
     return redirect("/course-evaluation/" + str(evaluation.course.id))
 
 
 def update_request(request, eval_id):
     evaluation = get_object_or_404(Evaluation, pk=eval_id)
-    msg = 'Update'
-    return render(
-        request, "Password.html", {"evaluation":evaluation , "update":msg}
-    )
+    msg = "Update"
+    return render(request, "Password.html", {"evaluation": evaluation, "update": msg})
 
 
 def update(request, eval_id):
     evaluation = get_object_or_404(Evaluation, pk=eval_id)
-    msg = 'update'
+    msg = "update"
     if evaluation.password != int(request.GET["enteredPassword"]):
-        return render(
-            request,
-            "Password.html",
-            {"evaluation": evaluation},
-        )
-    return render(request, "evaluation_form.html", {"evaluation": evaluation, "update":msg})
+        return render(request, "Password.html", {"evaluation": evaluation},)
+    return render(
+        request, "evaluation_form.html", {"evaluation": evaluation, "update": msg}
+    )
 
 
 def update_final(request, eval_id):
@@ -238,4 +126,3 @@ def update_final(request, eval_id):
     evaluation.password = request.GET["password"]
     evaluation.save()
     return redirect("/course-evaluation/" + str(evaluation.course.id))
->>>>>>> 6e7f93f0de6ea360fd9e9c31ad2dca93a9f06b41
