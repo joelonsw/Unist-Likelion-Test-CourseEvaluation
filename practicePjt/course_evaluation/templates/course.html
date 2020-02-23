@@ -1,17 +1,15 @@
 {%  extends 'base.html' %}
 {% load static %}
 
-
-
-
-
-
 {% block content %}
 <head>
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <style>
+    
+</style>
 </head>
     <div class="search">
-        <img src="{% static 'image/searchbackground.png' %}" alt="" class="searchimg">
+        <img src="{% static 'image/searchbackground.png' %}" alt="" class="searchimg" >
         <div class="searchpart">
             <div class="searchline">
                 <div class="searchline1">
@@ -38,7 +36,7 @@
      <div class="course">
         {% for course in course %}
 
-        <div class="card container" style="width: 18rem; margin: 1.5%;">
+        <div id="forres" class="card container" style="width: 18rem; margin: 1.5%;">
         
 
             <div class="card-body">
@@ -95,24 +93,5 @@
     </div>
 
 
-<!-- 
-    <div class="course">
-        {% for course in course %}
-        
-            <div class="coursebox">
-                <div class = "coursename">{{course.course_name}}</div>
-                <div class = "courseid">{{course.course_code}}</div>
-                <div class = "courseimg">
-                    {% if course.subject == '컴퓨터공학' %}
-                        <img src="{% static 'image/computerscience.PNG' %}" alt="">
-                    {% elif course.subject == '기계공학' %}
-                        <img src="{% static 'image/machine.PNG' %}" alt="">
-                    {% elif course.subject == '화학' %}
-                        <img src="{% static 'image/chemistry.PNG' %}" alt="">
-                    {% endif %}
-                </div>
-            </div>
-      
-        {% endfor %} -->
-    </div> -->
+    </div> 
 {% endblock %}

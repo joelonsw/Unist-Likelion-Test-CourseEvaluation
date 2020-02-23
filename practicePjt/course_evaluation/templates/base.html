@@ -34,7 +34,40 @@
         <link href="pricing.css" rel="stylesheet">
       </head>
 
+<style>
+ 
+@media(max-width : 1023px){
+    body{
+      height: 100vw;
+    }
+    #logo{
+        display:-webkit-inline-box;
+        width: 100vw !important;
+        margin-left: 13vw !important;
+    }
+    #upline{
+        font-size:13px;
+        width:fit-content;
+    }
+    .duck{
+      margin-left:20vw;
+    }
+    .logoline{
+      width:37vw;
+    }
+    #res{
+      font-size: 12px;
+    }
+    #resfont{
+      font-size: 14px;
+    }
+    #res_footer{
+      margin-left: 0px;
+      display : flow-root;
+    }
+  } 
 
+</style>
 
 <body>
 
@@ -63,25 +96,25 @@
 
 
 
-      <footer class="pt-4 my-md-5 pt-md-5 border-top">
-        <div class="row">
+      <footer id="res" class="pt-4 my-md-5 pt-md-5 border-top">
+        <div id="res_footer"class="row">
           <div class="col-12 col-md">
             <img class="mb-2" src="/docs/4.4/assets/brand/bootstrap-solid.svg" alt="" width="24" height="24">
           </div>
           <div class="col-6 col-md">
-            <h5>Academical Plan</h5>
+            <h5 id="resfont">Academical Plan</h5 id="resfont">
             <ul class="list-unstyled text-small">
               <li><a class="text-muted" href="https://unist-kor.unist.ac.kr/campus-life/academic-info/academic-calendar/">학사일정</a></li>
             </ul>
           </div>
           <div class="col-6 col-md">
-            <h5>Portal</h5>
+            <h5 id="resfont">Portal</h5 id="resfont">
             <ul class="list-unstyled text-small">
               <li><a class="text-muted" href="https://portal.unist.ac.kr/irj/portal">유니스트 포탈</a></li>
             </ul>
           </div>
           <div class="col-6 col-md">
-            <h5>About</h5>
+            <h5 id="resfont">About</h5 id="resfont">
             <ul class="list-unstyled text-small">
 
               <li><a class="text-muted" href="https://github.com/chocohotsix/unist-likelion-CourseEval/">Team</a></li>
