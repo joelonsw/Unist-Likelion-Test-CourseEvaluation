@@ -8,6 +8,8 @@ class TimeStampedModel(models.Model):
 
     class Meta:
         abstract = True
+
+
 # Create your models here.
 
 
@@ -21,7 +23,7 @@ class lecture(models.Model):
 
 
 class evaluation(models.Model):
-    subject = models.CharField(default='주제', max_length=50)
+    subject = models.CharField(default="주제", max_length=50)
     star = models.IntegerField(default=5)
     text = models.TextField()
     password = models.IntegerField(default=0000)
@@ -35,7 +37,7 @@ class Course(TimeStampedModel):
     subject = models.CharField(max_length = 30, blank = True)
 
     def __str__(self):
-        return '%s - %s' % (self.course_code, self.course_name)
+        return "%s - %s" % (self.course_code, self.course_name)
 
 
 # class Evaluation(TimeStampedModel):
@@ -44,3 +46,4 @@ class Course(TimeStampedModel):
 #     grade = models.IntegerField()
 #     review = models.TextField()
 #     password = models.IntegerField(default=0000, max_length=10)
+

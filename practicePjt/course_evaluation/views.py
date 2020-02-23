@@ -7,6 +7,7 @@ from .forms import *
 # Create your views here.
 
 
+<<<<<<< HEAD
 # def tset(request):
 #     form = SearchForm()
 #     return render(request, "course.html", {"form": form})
@@ -97,6 +98,12 @@ def save(request, course_id):
 #     return render(
 #         request, "update.html", {"fia_detail": fia_detail, "fia_eval": fia_eval}
 #     )
+=======
+def tset(request):
+
+    form = SearchForm()
+    return render(request, "course.html", {"form": form})
+>>>>>>> 6fb1ada492fea3c4e62c8c6b6b84e8aed0e0b259
 
 
 # def updateFinal(request, fiadetail_id, fiaeval_id):
