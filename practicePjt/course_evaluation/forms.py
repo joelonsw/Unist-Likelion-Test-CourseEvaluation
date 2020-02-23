@@ -1,5 +1,7 @@
 from django import forms
-from fia.models import Course
+from .models import Course
+from .models import Evaluation
+
 
 # from multiselectfield import MultiSelectField
 
