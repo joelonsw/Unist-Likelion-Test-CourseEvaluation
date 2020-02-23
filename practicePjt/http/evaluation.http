@@ -18,6 +18,10 @@ Content-Type: application/json
 GET {{base_url}}/fetch-course-evaluation/3
 Content-Type: application/json
 
+### 모달 데이타 가져오기 ###
+GET {{base_url}}/fetch-modal-data/2
+Content-Type: application/json
+
 
 ### 강의평가 수정하기 ###
 PUT {{base_url}}/update-course-evaluation/5
@@ -30,7 +34,7 @@ Content-Type: application/json
 }
 
 ### 강의평가 삭제하기 ###
-DELETE  {{base_url}}/delete-course-evaluation/4
+DELETE  {{base_url}}/delete-course-evaluation/2
 Content-Type: application/json
 
 {

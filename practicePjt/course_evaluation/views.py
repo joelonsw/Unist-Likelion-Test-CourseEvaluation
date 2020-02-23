@@ -1,15 +1,18 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.http import HttpResponse
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
+from django.views.decorators.csrf import ensure_csrf_cookie
+
 
 from .models import Course, Evaluation
 from .serializers import CourseSerializer, EvluationSerializer
 
 
 def home(request):
-    course=Course.objects
-    return render(request, "home.html",{"course":course})
+    course = Course.objects.all()
+    return render(request, "home.html", {"course": course})
 
 
 # 강의검색
@@ -17,6 +20,7 @@ def home(request):
 @permission_classes([AllowAny])
 def search_course(request):
     course_code = request.data.get("course_code", "")
+
     course_name = request.data.get("course_name", "")
     course_professor = request.data.get("course_professor", "")
     course_semester = request.data.get("course_semester", "")
@@ -61,17 +65,20 @@ def create_course_evaluation(request, course_id):
 # 강의평가 불러오기
 @api_view(["GET"])
 @permission_classes([AllowAny])
+@ensure_csrf_cookie
 def fetch_course_evaluation(request, course_id):
+    print("!!")
     try:
         course = Course.objects.get(id=course_id)
     except Course.DoesNotExist:
         return Response({"message": "no such objects"}, status=404)
 
     evaluation = Evaluation.objects.filter(course=course).order_by("id")
+    course = CourseSerializer(course).data
     evaluation = EvluationSerializer(evaluation, many=True).data
 
-    return Response(evaluation, status=200)
-    # return render(request, "detail.html", {"course": course, "evaluation": evaluation})
+    # return Response(evaluation, status=200)
+    return render(request, "detail.html", {"course": course, "evaluation": evaluation},)
 
 
 # 강의평가 수정하기
@@ -108,13 +115,16 @@ def delete_course_evaluation(request, evaluation_id):
     except Evaluation.DoesNotExist:
         return Response({"message": "no such objects"}, status=404)
 
+    print(password)
+    print(evaluation.password)
     if password == evaluation.password:
         evaluation.delete()
-        return Response({"message": "evaluation deleted"}, status=200)
-        # return redirect("/course-evaluation/" + str(evaluation.course.id))
 
+        # return Response({"message": "evaluation deleted"}, status=200)
+        return redirect("/fetch-course-evaluation/" + str(evaluation.course.id))
     else:
-        return Response({"message": "permission denied"}, status=400)
+        return redirect("/fetch-course-evaluation/" + str(evaluation.course.id))
+        # return HttpResponse("permission denide")
 
 
 # 강의평가 창으로 이동하기

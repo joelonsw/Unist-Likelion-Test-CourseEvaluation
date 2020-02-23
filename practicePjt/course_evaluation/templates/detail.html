@@ -1,92 +1,132 @@
 {% extends 'base.html' %}
-{% block content %}
-
 {% load static %}
 
-<!doctype html>
-<html lang="en">
+{% block css %}
+<link rel="stylesheet" href="{% static 'portfolio/detail.css' %}">
+{% endblock %}
 
-<head>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-    crossorigin="anonymous"></script>
+{% block content %}
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-  <meta name="generator" content="Jekyll v3.8.6">
-
-
-  <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/pricing/">
-
-  <!-- Bootstrap core CSS -->
-  <link href="/docs/4.4/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
-  <!-- Favicons -->
-  <link rel="apple-touch-icon" href="/docs/4.4/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
-  <link rel="icon" href="/docs/4.4/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
-  <link rel="icon" href="/docs/4.4/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
-  <link rel="manifest" href="/docs/4.4/assets/img/favicons/manifest.json">
-  <link rel="mask-icon" href="/docs/4.4/assets/img/favicons/safari-pinned-tab.svg" color="#563d7c">
-  <link rel="icon" href="/docs/4.4/assets/img/favicons/favicon.ico">
-  <link rel="stylesheet" href="{% static 'css/fiadetail.css'%}">
-  <meta name="msapplication-config" content="/docs/4.4/assets/img/favicons/browserconfig.xml">
-  <meta name="theme-color" content="#563d7c">
-
-  <!-- Custom styles for this template -->
-  <link href="pricing.css" rel="stylesheet">
-</head>
-
-<body>
-
-
-  <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-    <div class="container">
-      <p class="lead">
-        <h1>{{course.course_name}}</h1>
-        <h3>{{course.course_professor}}</h3>
-        <h4>{{course.course_code}}</h4>
-      </p>
-    </div>
-    <br>
-    <form action="{% url 'evaluation' course.id %}">
-      <button type="submit" class="btn btn-dark"> 강의평가 작성하기</button>
-    </form>
+<div class="container d-flex justify-content-center detail ">
+  <div class="d-flex bd-highlight mb-3 head">
+    <div class="p-2 bd-highlight text-right">{{course.course_semester}} 학기 </div>
+    <div class="p-2 bd-highlight text-right">{{course.course_code}} </div>
+    <div class="p-2 bd-highlight text-right">{{course.course_name}} </div>
+    <div class="p-2 bd-highlight text-right">{{course.course_professor}} 교수님 </div>
   </div>
+</div>
 
 
-
-  {% for eval in evaluation.all %}
-
-  <div class="container">
-    <div class="card" style="width: 100%;">
+<div class="container">
+  <div class="row">
+    {% for eval in evaluation %}
+    <div class="card w-100 mb-5">
+      <div class="card-header">
+        <div class="row">
+          <div class="col d-flex justify-content-start">Written at {{eval.created_at}}</div>
+          <div class="col d-flex justify-content-end">
+            <a herf="" type="button" class="btn btn-info mr-3 text-white" data-toggle="modal" data-target="#update">
+              수정하기
+            </a>
+            <a class="btn btn-danger mr-3 text-white open-delete-modal" data-toggle="modal" data-target="#delete"
+              data-id="{{eval.id}}" data-CSRF="{{csrf_token}}">
+              삭제하기
+            </a>
+          </div>
+        </div>
+      </div>
       <div class="card-body">
-        <h5 class="card-title">{{course.course_name}}</h5>
-        <h6 class="card-subtitle mb-2 text-muted">{{eval.grade}} out of 5</h6>
-        <br>
-        <p class="card-text">{{eval.review}}</p>
-        <p>비밀번호(나중에 없애야함) : {{eval.password}}</p>
-        <a href=" {% url 'delete_request' eval.id %} ">삭제</a>
-        <a href=" {% url 'update_request' eval.id %} ">수정</a>
+        <blockquote class="blockquote mb-0">
+          <p>{{eval.review}}</p>
+          <footer class="blockquote-footer">10점 만점에 {{eval.grade}}점</footer>
+        </blockquote>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<div id="modal-div"></div>
+
+<!-- 수정하기 Modal -->
+<!-- <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">강의평가 수정하기</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-default">Default</span>
+          </div>
+          <input type="text" class="form-control" aria-label="Sizing example input"
+            aria-describedby="inputGroup-sizing-default">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Modify</button>
       </div>
     </div>
   </div>
-  <br>
+</div> -->
 
-  {% endfor %}
+<!-- 삭제하기 Modal -->
+<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">강의평가 삭제하기{{modal_evaluation.id}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-default"">Password</span>
+          </div>
+          <input type=" text" class="form-control" aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-default" name="password">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary delete-evaluation">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
-</body>
 
-</html>
+  <script>
+    $(function () {
+      var evaluation_id = 0
+      var csrf_token = $(".open-delete-modal").data().CSRF;
+      $(".open-delete-modal").click(function () {
+        evaluation_id = $(this).data('id');
+      })
+      $(document).on('click', '.delete-evaluation', function () {
+        console.log(evaluation_id)
+        $.ajax({
+          url: "/delete-course-evaluation" + "/" + evaluation_id,
+          type: 'DELETE',
+          headers: {
+            "X-CSRFTOKEN": "{{ csrf_token }}"
+          },
+          error: function () {
+            console.log('error')
+          },
+        })
+      })
+    });
+  </script>
+  {% endblock %}
 
-{% endblock %}
+  $(document).on('click', '.delete-evaluation', function () {
+  document.location = "/delete-course-evaluation" + "/" + evaluation_id;
+  })
