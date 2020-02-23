@@ -8,10 +8,13 @@ from .serializers import CourseSerializer
 
 # Create your views here.
 
+def home(request):
+
+    return render(request, 'course.html')
 
 @api_view(["POST"])
 @permission_classes([AllowAny])
-def tset(request):
+def search_course(request):
     course_code = request.data.get("course_code", "")
     course_name = request.data.get("course_name", "")
     course_professor = request.data.get("course_professor", "")
@@ -27,5 +30,7 @@ def tset(request):
     if course_semester != "":
         course = course.filter(course_semester__contains = course_semester)
     course = CourseSerializer(course, many=True).data
-    return Response(course, status=200)
+
+    return render(request,'course.html',{"course":course})
+    # return Response(course, status=200)
    
