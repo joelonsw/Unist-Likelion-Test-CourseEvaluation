@@ -28,14 +28,15 @@ class evaluation(models.Model):
 
 
 class Course(TimeStampedModel):
-    course_code = models.CharField(max_length=15)
-    course_name = models.CharField(max_length=30)
-    course_professor = models.CharField(max_length=30)
-    course_semester = models.CharField(max_length=10)
-    subject = models.CharField(max_length = 30, blank = True)
+    course_code = models.CharField(max_length=15, blank = True)
+    course_name = models.CharField(max_length=30, blank = True)
+    course_professor = models.CharField(max_length=30, blank = True)
+    course_semester = models.CharField(max_length=10, blank = True)
 
     def __str__(self):
         return '%s - %s' % (self.course_code, self.course_name)
+    def subject(self):
+        subject = course_code[0,3]
 
 
 # class Evaluation(TimeStampedModel):
