@@ -8,7 +8,8 @@ from .serializers import CourseSerializer, EvluationSerializer
 
 
 def home(request):
-    return render(request, "course.html")
+    course=Course.objects
+    return render(request, "home.html",{"course":course})
 
 
 @api_view(["POST"])

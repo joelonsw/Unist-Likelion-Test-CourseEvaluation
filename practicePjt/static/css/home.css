@@ -86,7 +86,8 @@
 }
 .coursebox{
   margin-left: 8vw;
-  width: 12vw;
+  height: 16vw; 
+  width: 12vw; 
   margin-top: 5vh;
   border: 1px solid black;
 }
