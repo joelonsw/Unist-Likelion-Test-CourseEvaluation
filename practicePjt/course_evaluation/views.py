@@ -8,10 +8,10 @@ from .serializers import CourseSerializer, EvluationSerializer
 
 
 def home(request):
-    return render(request, "course.html")
+    course=Course.objects
+    return render(request, "course.html", {"course": course})
 
 
-# 강의검색
 @api_view(["POST"])
 @permission_classes([AllowAny])
 def search_course(request):
@@ -35,7 +35,6 @@ def search_course(request):
     return Response(course, status=200)
 
 
-# 강의평가 만들기
 @api_view(["POST"])
 @permission_classes([AllowAny])
 def create_course_evaluation(request, course_id):
@@ -54,71 +53,77 @@ def create_course_evaluation(request, course_id):
 
     evaluation = EvluationSerializer(evaluation).data
     return Response(evaluation, status=200)
-    # return redirect("/course-evaluation/" + str(course.id))
 
 
-# 강의평가 불러오기
 @api_view(["GET"])
 @permission_classes([AllowAny])
 def fetch_course_evaluation(request, course_id):
+    course_id = request.GET.get("course_id")
     try:
         course = Course.objects.get(id=course_id)
     except Course.DoesNotExist:
         return Response({"message": "no such objects"}, status=404)
-
-    evaluation = Evaluation.objects.filter(course=course).order_by("id")
-    evaluation = EvluationSerializer(evaluation, many=True).data
-
-    return Response(evaluation, status=200)
-    # return render(request, "detail.html", {"course": course, "evaluation": evaluation})
+    evaluation = Evaluation.objects.filter(course=course_id)
+    return render(request, "detail.html", {"course": course, "evaluation": evaluation})
 
 
-# 강의평가 수정하기
-@api_view(["PUT"])
-@permission_classes([AllowAny])
-def update_course_evaluation(request, evaluation_id):
-
-    try:
-        evaluation = Evaluation.objects.get(id=evaluation_id)
-    except Evaluation.DoesNotExist:
-        return Response({"message": "no such objects"}, status=404)
-
-    if request.data.get("password", -1) == evaluation.password:  # 비밀번호 확인후 맞으면 실행
-        evaluation.grade = request.data.get("grade", 3)
-        evaluation.review = request.data.get("review", "")
-        evaluation.save()
-        evaluation = EvluationSerializer(evaluation).data
-        return Response(
-            {"message": "evaluation updated", "evaluation": evaluation}, status=200
-        )
-        # return redirect("/course-evaluation/" + str(evaluation.course.id))
-
-    else:
-        return Response({"message": "permission denied"}, status=400)
+def detail(request, course_id):
+    course = get_object_or_404(Course, pk=course_id)
+    evaluation = Evaluation.objects.filter(course=course_id)
+    return render(request, "detail.html", {"course": course, "evaluation": evaluation})
 
 
-# 강의평가 삭제하기
-@api_view(["DELETE"])
-@permission_classes([AllowAny])
-def delete_course_evaluation(request, evaluation_id):
-    password = request.data.get("password", -1)
-    try:
-        evaluation = Evaluation.objects.get(id=evaluation_id)
-    except Evaluation.DoesNotExist:
-        return Response({"message": "no such objects"}, status=404)
-
-    if password == evaluation.password:
-        evaluation.delete()
-        return Response({"message": "evaluation deleted"}, status=200)
-        # return redirect("/course-evaluation/" + str(evaluation.course.id))
-
-    else:
-        return Response({"message": "permission denied"}, status=400)
-
-
-# 강의평가 창으로 이동하기
-@api_view(["GET"])
-@permission_classes([AllowAny])
 def evaluation(request, course_id):
     course = get_object_or_404(Course, pk=course_id)
     return render(request, "evaluation_form.html", {"course": course})
+
+
+def save(request, course_id):
+    course = get_object_or_404(Course, pk=course_id)
+    new_eval = Evaluation.objects.create(
+        course=course,
+        grade=request.GET["grade"],
+        review=request.GET["review"],
+        password=request.GET["password"],
+    )
+    new_eval.save()
+    return redirect("/course-evaluation/" + str(course.id))
+
+
+def delete_request(request, eval_id):
+    evaluation = get_object_or_404(Evaluation, pk=eval_id)
+    msg = "Delete"
+    return render(request, "Password.html", {"evaluation": evaluation, "delete": msg})
+
+
+def delete(request, eval_id):
+    evaluation = get_object_or_404(Evaluation, pk=eval_id)
+    if evaluation.password != int(request.GET["enteredPassword"]):
+        return render(request, "Password.html", {"evaluation": evaluation},)
+    evaluation.delete()
+    return redirect("/course-evaluation/" + str(evaluation.course.id))
+
+
+def update_request(request, eval_id):
+    evaluation = get_object_or_404(Evaluation, pk=eval_id)
+    msg = "Update"
+    return render(request, "Password.html", {"evaluation": evaluation, "update": msg})
+
+
+def update(request, eval_id):
+    evaluation = get_object_or_404(Evaluation, pk=eval_id)
+    msg = "update"
+    if evaluation.password != int(request.GET["enteredPassword"]):
+        return render(request, "Password.html", {"evaluation": evaluation},)
+    return render(
+        request, "evaluation_form.html", {"evaluation": evaluation, "update": msg}
+    )
+
+
+def update_final(request, eval_id):
+    evaluation = get_object_or_404(Evaluation, pk=eval_id)
+    evaluation.grade = request.GET["grade"]
+    evaluation.review = request.GET["review"]
+    evaluation.password = request.GET["password"]
+    evaluation.save()
+    return redirect("/course-evaluation/" + str(evaluation.course.id))

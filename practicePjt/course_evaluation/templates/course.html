@@ -1,26 +1,43 @@
-<div class="d-flex justify-content-center">
-    <form action="" method="POST">
-        {% csrf_token %}
-        <!--  -->
-        {% for field in form %}
+{%  extends 'base.html' %}
+{% block content %}
+{% load static %}
+<head>
+    <link rel="stylesheet" href="static/css/home.css">
+</head>
+<body>
+    <div class="search">
+        <img src="{% static 'image/searchbackground.png' %}" alt="" class="searchimg">
+        <div class="searchpart">
+            <div class="searchline">
+                <div class="searchline1">
+                    "어떤 강의 듣지?"
+                </div>
+                <div class="searchline2">
+                    알고 싶은 강의를 검색하세요
+                </div>
 
-        <div class="form-group" id="form">
-
-            {{ field.label_tag}}
-            {{ field }}
-            {% if field.errors %}
-            {% for error in field.errors %}
-            <span class="help-block">{{ error }}</span>
-            {% endfor %}
-            {% endif %}
-
+            </div>
         </div>
-
+    </div>
+    
+    <div class="course">
+        {% for course in course.all %}
+        
+            <div class="coursebox">
+                <div class = "coursename">{{course.course_name}}</div>
+                <div class = "courseid">{{course.course_code}}</div>
+                <div class = "courseimg">
+                    {% if course.subject == '컴퓨터공학' %}
+                        <img src="{% static 'image/computerscience.PNG' %}" alt="">
+                    {% elif course.subject == '기계공학' %}
+                        <img src="{% static 'image/machine.PNG' %}" alt="">
+                    {% elif course.subject == '화학' %}
+                        <img src="{% static 'image/chemistry.PNG' %}" alt="">
+                    {% endif %}
+                </div>
+            </div>
+      
         {% endfor %}
-
-        <!-- button -->
-        <div class="d-flex justify-content-center" id="button-box">
-            <button class="btn btn-secondary" id="button">search</button>
-        </div>
-    </form>
-</div>
+    </div>
+</body>
+{% endblock %}
