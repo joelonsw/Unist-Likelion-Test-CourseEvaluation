@@ -20,6 +20,5 @@ from review import views
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", views.home, name="home"),
-    # path("fia/", include("fia.urls")),
     path("course-evaluation/", include("course_evaluation.urls")),
 ]

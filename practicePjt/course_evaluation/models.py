@@ -14,7 +14,6 @@ class Course(TimeStampedModel):
     course_name = models.CharField(max_length=30)
     course_professor = models.CharField(max_length=30)
     course_semester = models.CharField(max_length=10)
-    subject = models.CharField(max_length = 30, blank = True)
 
     def __str__(self):
         return '%s - %s' % (self.course_code, self.course_name)

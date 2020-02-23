@@ -16,7 +16,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v3.8.6">
-    <title>경영학부</title>
+
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/pricing/">
 
@@ -63,6 +63,8 @@
       <br>
       <p class="card-text">{{eval.review}}</p>
       <p>비밀번호(나중에 없애야함) : {{eval.password}}</p> 
+      <a href=" {% url 'delete_request' eval.id %} ">삭제</a>
+      <a href=" {% url 'update_request' eval.id %} ">수정</a>
     </div>
 </div>
   </div>

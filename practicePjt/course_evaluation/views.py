@@ -2,24 +2,11 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Course
 from .models import Evaluation
 from .forms import *
+from rest_framework.response import Response
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny
 
-
-# Create your views here.
-
-
-# def tset(request):
-#     form = SearchForm()
-#     return render(request, "course.html", {"form": form})
-
-
-# def fetch_course(request):
-#     pass
-
-
-# def fia(request):
-#     fia_detail = lecture.objects
-#     return render(request, "fia.html", {"fia_detail": fia_detail})
-
+from .serializers import CourseSerializer
 
 def detail(request, course_id):
     course = get_object_or_404(Course, pk=course_id)
@@ -40,66 +27,47 @@ def save(request, course_id):
     return redirect("/course-evaluation/"+str(course.id))
     
 
+def delete_request(request, eval_id):
+    evaluation = get_object_or_404(Evaluation, pk=eval_id)
+    msg = 'Delete'
+    return render( request, "Password.html", {"evaluation":evaluation, 'delete':msg} )
 
-# def save(request, fiadetail_id):
-#     fia_detail = get_object_or_404(lecture, pk=fiadetail_id)
-#     new_eval = evaluation()
-#     new_eval.subject = fia_detail.name
-#     new_eval.star = request.GET["star"]
-#     new_eval.text = request.GET["written"]
-#     new_eval.password = request.GET["password"]
-#     new_eval.save()
-#     return redirect("/fia/" + str(fia_detail.id))
-
-
-# def delete_request(request, fiadetail_id, fiaeval_id):
-#     fia_eval = get_object_or_404(evaluation, pk=fiaeval_id)
-#     fia_detail = get_object_or_404(lecture, pk=fiadetail_id)
-#     return render(
-#         request, "deletePassword.html", {"fia_detail": fia_detail, "fia_eval": fia_eval}
-#     )
+def delete(request, eval_id):
+    evaluation = get_object_or_404(Evaluation, pk=eval_id)
+    if evaluation.password != int(request.GET["enteredPassword"]):
+        return render(
+            request,
+            "Password.html",
+            {"evaluation":evaluation},
+        )
+    evaluation.delete()
+    return redirect("/course-evaluation/" + str(evaluation.course.id))
 
 
-# def delete(request, fiadetail_id, fiaeval_id):
-#     fia_eval = get_object_or_404(evaluation, pk=fiaeval_id)
-#     fia_detail = get_object_or_404(lecture, pk=fiadetail_id)
-#     if fia_eval.password != int(request.GET["enteredPassword"]):
-#         return render(
-#             request,
-#             "deletePassword.html",
-#             {"fia_detail": fia_detail, "fia_eval": fia_eval},
-#         )
-#     fia_eval.delete()
-#     return redirect("/fia/" + str(fia_detail.id))
+def update_request(request, eval_id):
+    evaluation = get_object_or_404(Evaluation, pk=eval_id)
+    msg = 'Update'
+    return render(
+        request, "Password.html", {"evaluation":evaluation , "update":msg}
+    )
 
 
-# def update_request(request, fiadetail_id, fiaeval_id):
-#     fia_eval = get_object_or_404(evaluation, pk=fiaeval_id)
-#     fia_detail = get_object_or_404(lecture, pk=fiadetail_id)
-#     return render(
-#         request, "updatePassword.html", {"fia_detail": fia_detail, "fia_eval": fia_eval}
-#     )
+def update(request, eval_id):
+    evaluation = get_object_or_404(Evaluation, pk=eval_id)
+    msg = 'update'
+    if evaluation.password != int(request.GET["enteredPassword"]):
+        return render(
+            request,
+            "Password.html",
+            {"evaluation": evaluation},
+        )
+    return render(request, "evaluation_form.html", {"evaluation": evaluation, "update":msg})
 
 
-# def update(request, fiadetail_id, fiaeval_id):
-#     fia_eval = get_object_or_404(evaluation, pk=fiaeval_id)
-#     fia_detail = get_object_or_404(lecture, pk=fiadetail_id)
-#     if fia_eval.password != int(request.GET["enteredPassword"]):
-#         return render(
-#             request,
-#             "updatePassword.html",
-#             {"fia_detail": fia_detail, "fia_eval": fia_eval},
-#         )
-#     return render(
-#         request, "update.html", {"fia_detail": fia_detail, "fia_eval": fia_eval}
-#     )
-
-
-# def updateFinal(request, fiadetail_id, fiaeval_id):
-#     fia_eval = get_object_or_404(evaluation, pk=fiaeval_id)
-#     fia_detail = get_object_or_404(lecture, pk=fiadetail_id)
-#     fia_eval.star = request.GET["star"]
-#     fia_eval.text = request.GET["written"]
-#     fia_eval.password = request.GET["password"]
-#     fia_eval.save()
-#     return redirect("/fia/" + str(fia_detail.id))
+def update_final(request, eval_id):
+    evaluation = get_object_or_404(Evaluation, pk=eval_id)
+    evaluation.grade = request.GET["grade"]
+    evaluation.review = request.GET["review"]
+    evaluation.password = request.GET["password"]
+    evaluation.save()
+    return redirect("/course-evaluation/" + str(evaluation.course.id))
