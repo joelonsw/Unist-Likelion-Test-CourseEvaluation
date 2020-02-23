@@ -1,27 +1,147 @@
 {% extends 'base.html' %}
 {% load static %}
+<!doctype html>
+<html lang="en">
 
-{% block content %}
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.6">
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/pricing/">
+
+    <!-- Bootstrap core CSS -->
+    <link href="/docs/4.4/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" href="/docs/4.4/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" href="/docs/4.4/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="/docs/4.4/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="manifest" href="/docs/4.4/assets/img/favicons/manifest.json">
+    <link rel="mask-icon" href="/docs/4.4/assets/img/favicons/safari-pinned-tab.svg" color="#563d7c">
+    <link rel="icon" href="/docs/4.4/assets/img/favicons/favicon.ico">
+    <link rel="stylesheet" href="{% static 'css/home.css'%}">
+    <meta name="msapplication-config" content="/docs/4.4/assets/img/favicons/browserconfig.xml">
+    <meta name="theme-color" content="#563d7c">
 
 
-<div class="container">
-    <div class="row">
-        {% for course in course %}
-        <div class="col-md-4">
-            <a class="a-tag" href="">
-                <div class="card mb-4 shadow-sm">
-                    <img class="card-img-top" src="{% static 'image/computerscience.PNG' %}" alt=" Card image cap"
-                        id="card-img">
-                    <div class="card-body" id="card-body">
-                        <h4>{{ course.course_name }}</h4>
-                        <p class="card-text" id="card-text"></p>
+    <link href="pricing.css" rel="stylesheet">
+</head>
+
+
+<body style="font-family: 'Roboto';">
+
+
+
+    <div class="search">
+        <img src="{% static 'image/searchbackground.png' %}" alt="" class="searchimage">
+        <div class="searchpart">
+
+            {% block content %}
+
+
+            <div class="container">
+                <div class="row">
+                    {% for course in course %}
+                    <div class="col-md-4">
+                        <a class="a-tag" href="">
+                            <div class="card mb-4 shadow-sm">
+                                <img class="card-img-top" src="{% static 'image/computerscience.PNG' %}"
+                                    alt=" Card image cap" id="card-img">
+                                <div class="card-body" id="card-body">
+                                    <h4>{{ course.course_name }}</h4>
+                                    <p class="card-text" id="card-text"></p>
+                                </div>
+                            </div>
+                        </a>
+
+                    </div>
+
+                    <div class="course">
+                        {% for course in course.all %}
+
+                        <div class="card container" style="width: 18rem; margin: 1.5%;">
+
+
+                            <div class="card-body">
+                                <a href=" {% url 'fetch-course-evaluation' course.id %} ">
+                                    <h5 class="card-title">{{course.course_name}}</h5>
+                                    <p class="card-text">{{course.course_code}}</p>
+                                </a>
+                                {% if 'C' in course.course_code and 'S' in course.course_code and 'E' in course.course_code%}
+                                <img class="card-img-top" style="width: 50%;"
+                                    src="{% static 'image/computerscience.PNG' %}" alt="">
+                                {% elif 'M' in course.course_code and 'E' in course.course_code and 'N' in course.course_code%}
+                                <img class="card-img-top" style="width: 50%;" src="{% static 'image/machine.PNG' %}"
+                                    alt="">
+                                {% elif 'A' in course.course_code and 'C' in course.course_code and 'E' in course.course_code%}
+                                <img class="card-img-top" style="width: 50%;" src="{% static 'image/chemistry.PNG' %}"
+                                    alt="">
+                                {% elif 'B' in course.course_code and 'I' in course.course_code and 'O' in course.course_code%}
+                                <img class="card-img-top" style="width: 50%;" src="{% static 'image/virus.png' %}"
+                                    alt="">
+                                {% elif 'A' in course.course_code and 'H' in course.course_code and 'S' in course.course_code%}
+                                <img class="card-img-top" style="width: 50%;"
+                                    src="{% static 'image/enable-sound.png' %}" alt="">
+                                {% elif 'C' in course.course_code and 'H' in course.course_code and 'M' in course.course_code%}
+                                <img class="card-img-top" style="width: 50%;" src="{% static 'image/plastic.png' %}"
+                                    alt="">
+                                {% elif 'T' in course.course_code and 'I' in course.course_code and 'M' in course.course_code%}
+                                <img class="card-img-top" style="width: 50%;" src="{% static 'image/data.png' %}"
+                                    alt="">
+                                {% elif 'I' in course.course_code and 'I' in course.course_code and 'D' in course.course_code%}
+                                <img class="card-img-top" style="width: 50%;" src="{% static 'image/sketch.png' %}"
+                                    alt="">
+                                {% elif 'M' in course.course_code and 'E' in course.course_code and 'N' in course.course_code%}
+                                <img class="card-img-top" style="width: 50%;" src="{% static 'image/science.png' %}"
+                                    alt="">
+                                {% elif 'M' in course.course_code and 'G' in course.course_code %}
+                                <img class="card-img-top" style="width: 50%;" src="{% static 'image/data.png' %}"
+                                    alt="">
+                                {% elif 'P' in course.course_code and 'H' in course.course_code and 'Y' in course.course_code%}
+                                <img class="card-img-top" style="width: 50%;" src="{% static 'image/physics.PNG' %}"
+                                    alt="">
+                                {% elif 'E' in course.course_code and 'N' in course.course_code and 'E' in course.course_code%}
+                                <img class="card-img-top" style="width: 50%;" src="{% static 'image/energy.PNG' %}"
+                                    alt="">
+                                {% elif 'E' in course.course_code and 'S' in course.course_code and 'E' in course.course_code%}
+                                <img class="card-img-top" style="width: 50%;" src="{% static 'image/environ.PNG' %}"
+                                    alt="">
+                                {% elif 'M' in course.course_code and 'T' in course.course_code and 'H' in course.course_code%}
+                                <img class="card-img-top" style="width: 50%;" src="{% static 'image/math.PNG' %}"
+                                    alt="">
+                                {% elif 'S' in course.course_code and 'C' in course.course_code %}
+                                <img class="card-img-top" style="width: 50%;" src="{% static 'image/material.PNG' %}"
+                                    alt="">
+                                {% else %}
+                                <img class="card-img-top" style="width: 50%;"
+                                    src=" {% static 'image/dictionary.png' %} " alt="">
+                                {% endif %}
+
+                            </div>
+                        </div>
+
+
+
+
+
+                        {% endfor %}
                     </div>
                 </div>
-            </a>
 
-        </div>
-        {% endfor %}
-    </div>
-</div>
-
-{% endblock %}
+                {% endblock %}

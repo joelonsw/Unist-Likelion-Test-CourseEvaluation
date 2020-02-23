@@ -62,9 +62,23 @@
       <a class="p-2 text-dark"
         href="https://unist-kor.unist.ac.kr/campus-life/academic-info/academic-calendar/">학사일정</a>
       <a class="p-2 text-dark" href="https://portal.unist.ac.kr/irj/portal">UNIST 포탈</a>
-      <a class="p-2 text-dark" href="#">제작자</a>
+
+      <a class="p-2 text-dark" href="https://github.com/chocohotsix/unist-likelion-CourseEval/">제작자</a>
     </nav>
   </div>
+  <div class="logoline">
+    <div class="logoline1">강의평가 검색은</div>
+    <div class="logoline2"> <a href="{% url 'home' %}"> 강의봤덕 </a></div>
+  </div>
+  </div>
+  <nav class="my-2 my-md-0 mr-md-3" id="upline">
+    <a class="p-2 text-dark" href="https://unist-kor.unist.ac.kr/campus-life/academic-info/academic-calendar/">학사일정</a>
+    <a class="p-2 text-dark" href="https://portal.unist.ac.kr/irj/portal">UNIST 포탈</a>
+    <a class="p-2 text-dark" href="#">제작자</a>
+  </nav>
+  </div>
+
+  {% block content%}
 
   {% block content%}
 
@@ -93,7 +107,8 @@
       <div class="col-6 col-md">
         <h5>About</h5>
         <ul class="list-unstyled text-small">
-          <li><a class="text-muted" href="#">Team</a></li>
+
+          <li><a class="text-muted" href="https://github.com/chocohotsix/unist-likelion-CourseEval/">Team</a></li>
         </ul>
       </div>
     </div>

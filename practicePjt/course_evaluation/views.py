@@ -115,16 +115,16 @@ def delete_course_evaluation(request, evaluation_id):
     except Evaluation.DoesNotExist:
         return Response({"message": "no such objects"}, status=404)
 
-    print(password)
-    print(evaluation.password)
     if password == evaluation.password:
         evaluation.delete()
+        print("!!")
 
         # return Response({"message": "evaluation deleted"}, status=200)
-        return redirect("/fetch-course-evaluation/" + str(evaluation.course.id))
+        return redirect("/fetch/course-evaluation/" + str(evaluation.course.id))
     else:
-        return redirect("/fetch-course-evaluation/" + str(evaluation.course.id))
-        # return HttpResponse("permission denide")
+        print("!!")
+
+        return HttpResponse("permission denide")
 
 
 # 강의평가 창으로 이동하기
