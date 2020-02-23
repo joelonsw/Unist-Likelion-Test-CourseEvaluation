@@ -105,15 +105,18 @@ input:focus {
   padding-left: 13px; */
 }
 .course{
-  margin-top: 40vh;
+  margin-top: 45vh;
   display: flex;
-  width: 80vw;
+  /* width: 80vw; */
+  justify-content: center;
   flex-wrap: wrap;
   margin-left: 6vw;
+  margin-right : 6vw;
 }
 .coursebox{
   margin-left: 8vw;
-  width: 12vw;
+  height: 16vw; 
+  width: 12vw; 
   margin-top: 5vh;
   border: 1px solid black;
 }
@@ -130,7 +133,11 @@ input:focus {
   font-size: 20px;
   font-family: Roboto;
 }
-.courseimg{
-  float: right;
-  padding-top: 10vh;
+
+.card{
+  border-width: 5px;
+  border-style: solid;
+  border-color:slategray;
+  border-image: initial;
+  border-radius: 0.25rem;
 }

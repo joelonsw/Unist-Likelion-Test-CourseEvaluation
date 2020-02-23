@@ -9,9 +9,10 @@ from .serializers import CourseSerializer, EvluationSerializer
 
 def home(request):
     course=Course.objects.all()
-    print("!")
-    print(course)
     return render(request, "course.html", {"course": course})
+#     course=Course.objects
+#     return render(request, "home.html",{"course":course})
+
 
 
 @api_view(["POST"])
