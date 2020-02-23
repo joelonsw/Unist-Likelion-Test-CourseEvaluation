@@ -22,7 +22,7 @@ def search_course(request):
     course_name = request.data.get("course_name", "")
     course_professor = request.data.get("course_professor", "")
     course_semester = request.data.get("course_semester", "")
-
+    msg = "search"
     course = Course.objects.all()
     if course_code != "":
         course = course.filter(course_code__contains=course_code)
@@ -34,7 +34,7 @@ def search_course(request):
         course = course.filter(course_semester__contains=course_semester)
     course = CourseSerializer(course, many=True).data
 
-    return render(request, "course.html", {"course": course})
+    return render(request, "course.html", {"course": course, "search":msg})
     # return Response(course, status=200)
 
 
