@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.6">
+    <title>HOME</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/pricing/">
+
+    <!-- Bootstrap core CSS -->
+<link href="/docs/4.4/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <!-- Favicons -->
+<link rel="apple-touch-icon" href="/docs/4.4/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="/docs/4.4/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/docs/4.4/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="/docs/4.4/assets/img/favicons/manifest.json">
+<link rel="mask-icon" href="/docs/4.4/assets/img/favicons/safari-pinned-tab.svg" color="#563d7c">
+<link rel="icon" href="/docs/4.4/assets/img/favicons/favicon.ico">
+<link rel="stylesheet" href="{% static 'css/home.css'%}">
+<meta name="msapplication-config" content="/docs/4.4/assets/img/favicons/browserconfig.xml">
+<meta name="theme-color" content="#563d7c">
+
+
+    <link href="pricing.css" rel="stylesheet">
+  </head>
+
+
+  <body>
+
+
+
+<div class="search">
+  <img src="{% static 'image/searchbackground.png' %}" alt="" class = "searchimage">
+  <div class="searchpart">
+
+    <div class="searchline">
+      <div class="searchline1">
+        "어떤 강의 듣지?"
+      </div>
+      <div class="searchline2">
+        알고 싶은 강의를 검색하세요
+      </div>
+      <form action="{% url 'search' %}" method="POST" class="searchline3" id="searchform">
+        {% crsf_token %}
+        <!-- <select name="search_type" id="searchtype">
+          <option value="course_name">과목명</option>
+          <option value="course_code">과목코드</option>
+          <option value="course_professor">교수명</option>
+          <option value="course_semester">학기</option>
+        </select> -->
+        <input type="text" value="학기"  class="searchline3 searchline4" name="search_semester">
+        <input type="text" value="과목코드" class="searchline3 searchline4" name="search_code">
+        <input type="text" value="과목명" class="searchline3 searchline4" name="search_name">
+        <input type="text" value="교수명" class="searchline3 searchline4" name="search_professor">
+        <input type="submit" value="검색하기">
+      </form>
+  </div>
+</div>
+
+  </div>
+
+<div class="course">
+  {% for course in courses.all %}
+  
+  <div class="coursebox">
+    <div class = "coursename"><a href=" {% url 'detail' course.id %} ">{{course.course_name}}</a></div>
+    <div class = "courseid">{{course.course_code}}</div>
+    <div class = "courseimg">
+      {% if course.subject == '컴퓨터공학' %}
+      <img src="{% static 'image/computerscience.PNG' %}" alt="">
+      {% elif course.subject == '기계공학' %}
+      <img src="{% static 'image/machine.PNG' %}" alt="">
+      {% elif course.subject == '화학' %}
+      <img src="{% static 'image/chemistry.PNG' %}" alt="">
+      {% endif %}
+    </div>
+  </div>
+
+  {% endfor %}
+</div>
+</div>
+</body>
+</html>
+
+{% endblock %}

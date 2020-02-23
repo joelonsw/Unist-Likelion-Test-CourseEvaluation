@@ -13,3 +13,10 @@ Content-Type: application/json
     "review" : "개꿀강의 없나요?",
     "password" : "1234"
 }
+##강의별 평가 가져오기##
+GET {{base_url}}/course-evaluation/1
+Content-Type: application/json
+{
+    
+}
+

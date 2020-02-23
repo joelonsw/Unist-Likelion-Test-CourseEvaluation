@@ -45,6 +45,38 @@
     font-family: Roboto;
     font-weight: 500;
 }
+#searchtype{
+  position: absolute;
+  top: 20px;
+  left: 12px;
+}
+#searcharea{
+  position: absolute;
+  width: 500px;
+  height: 62px;
+  left: 160px;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+#searchform{
+  position: relative;
+  width: 660px;
+  border: solid 1px #dbdbdb;
+  height: 64px;
+}
+.searchline3{
+  /* width: 660px; */
+  /* height: 64px; */
+  border-radius: 16px;
+  /* border: solid 1px #dbdbdb; */
+  background-color: #ffffff;
+  margin-top: 4vh;
+  padding: 0;
+}
+.searchline4{
+
+}
 .course{
   margin-top: 40vh;
   display: flex;

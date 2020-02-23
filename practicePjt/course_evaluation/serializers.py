@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import Course
 from .models import Evaluation
+from fia.models import Course
 
 
 class CourseSerializer(serializers.ModelSerializer):
@@ -32,3 +33,4 @@ class EvluationSerializer(serializers.ModelSerializer):
             "updated_at",
         )
 
+        )

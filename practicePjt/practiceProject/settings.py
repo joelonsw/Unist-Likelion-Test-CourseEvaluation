@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "import_export",
     "course_evaluation",
+    "rest_framework",
 ]
 
 MIDDLEWARE = [

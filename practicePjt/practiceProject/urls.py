@@ -19,4 +19,15 @@ from django.urls import path, include
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("course_evaluation.urls")),
+
+urlpatterns = [
+    path("admin/", admin.site.urls),
+    path("", include("course_evaluation.urls")),
+]
+from review import views
+
+urlpatterns = [
+    path("admin/", admin.site.urls),
+    path("", views.home, name="home"),
+    path("course-evaluation/", include("course_evaluation.urls")),
 ]
