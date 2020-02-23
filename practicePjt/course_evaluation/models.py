@@ -26,3 +26,6 @@ class Evaluation(TimeStampedModel):
     review = models.TextField()
     password = models.IntegerField(default=0000)
 
+    def __str__(self):
+        return self.review[:10]
+
