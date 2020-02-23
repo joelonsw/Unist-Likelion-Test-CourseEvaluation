@@ -11,7 +11,6 @@ class CourseSerializer(serializers.ModelSerializer):
             "course_name",
             "course_professor",
             "course_semester",
-            "subject",
             "created_at",
             "updated_at",
         )
