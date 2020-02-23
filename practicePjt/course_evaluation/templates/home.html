@@ -101,11 +101,11 @@
             <div class="coursename">{{course.course_name}}</div>
             <div class="courseid">{{course.course_code}}</div>
             <div class="courseimg">
-                {% if course.subject == '컴퓨터공학' %}
+                {% if 'C' in course.course_code and 'S' in course.course_code and 'E' in course.course_code%}
                 <img src="{% static 'image/computerscience.PNG' %}" alt="">
-                {% elif course.subject == '기계공학' %}
+                {% elif 'M' in course.course_code and 'E' in course.course_code and 'N' in course.course_code%}
                 <img src="{% static 'image/machine.PNG' %}" alt="">
-                {% elif course.subject == '화학' %}
+                {% elif 'A' in course.course_code and 'C' in course.course_code and 'E' in course.course_code%}
                 <img src="{% static 'image/chemistry.PNG' %}" alt="">
                 {% endif %}
             </div>
