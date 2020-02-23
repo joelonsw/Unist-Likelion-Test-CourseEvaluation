@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v3.8.6">
-    <title>경영학부</title>
+    <title>HOME</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/pricing/">
 
@@ -70,7 +70,7 @@
   {% for course in courses.all %}
   
   <div class="coursebox">
-    <div class = "coursename">{{course.course_name}}</div>
+    <div class = "coursename"><a href=" {% url 'detail' course.id %} ">{{course.course_name}}</a></div>
     <div class = "courseid">{{course.course_code}}</div>
     <div class = "courseimg">
       {% if course.subject == '컴퓨터공학' %}

@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from fia.models import Course
+from course_evaluation.models import Course
 
 # Create your views here.
 def home(request):

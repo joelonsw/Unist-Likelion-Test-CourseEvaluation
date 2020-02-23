@@ -15,8 +15,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+<<<<<<< HEAD
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("course_evaluation.urls")),
 ]
+=======
+from review import views
+
+urlpatterns = [
+    path("admin/", admin.site.urls),
+    path("", views.home, name="home"),
+    path("course-evaluation/", include("course_evaluation.urls")),
+]
+>>>>>>> 46bc36cb23fa52243d7c53bc470666b5424d10fc
