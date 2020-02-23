@@ -1,10 +1,14 @@
 {%  extends 'base.html' %}
-{% block content %}
 {% load static %}
+
+
+
+
+
+{% block content %}
 <head>
-    <link rel="stylesheet" href="static/css/home.css">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
 </head>
-<body>
     <div class="search">
         <img src="{% static 'image/searchbackground.png' %}" alt="" class="searchimg">
         <div class="searchpart">
@@ -15,13 +19,21 @@
                 <div class="searchline2">
                     알고 싶은 강의를 검색하세요
                 </div>
-
+                <form action="{% url 'search-course' %}" class="searchline3" method="POST">
+                    {% csrf_token %}
+                    <img src="{% static 'image/search.PNG' %}" alt="" id="searchicon">
+                    <input type="text" placeholder="학기" class="searcharea" id="search_semester" aria-hidden="true" name="course_semester">
+                    <input type="text" placeholder="과목코드" class="searcharea searcharea2" name="course_code">
+                    <input type="text" placeholder="과목명" class="searcharea searcharea2" name="course_name">
+                    <input type="text" placeholder="교수명" class="searcharea searcharea2" name="course_professor">
+                    <input type="submit" value="search" class="searchbutton">
+                </form>
             </div>
         </div>
     </div>
     
     <div class="course">
-        {% for course in course.all %}
+        {% for course in course %}
         
             <div class="coursebox">
                 <div class = "coursename">{{course.course_name}}</div>
@@ -39,5 +51,4 @@
       
         {% endfor %}
     </div>
-</body>
 {% endblock %}

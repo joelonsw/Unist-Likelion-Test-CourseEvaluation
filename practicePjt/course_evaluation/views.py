@@ -2,13 +2,15 @@ from django.shortcuts import render, get_object_or_404, redirect
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
+from rest_framework.authentication import SessionAuthentication
 
 from .models import Course, Evaluation
 from .serializers import CourseSerializer, EvluationSerializer
 
-
 def home(request):
-    course=Course.objects
+    course=Course.objects.all()
+    print("!")
+    print(course)
     return render(request, "course.html", {"course": course})
 
 
@@ -31,12 +33,12 @@ def search_course(request):
         course = course.filter(course_semester__contains=course_semester)
     course = CourseSerializer(course, many=True).data
 
-    # return render(request, "course.html", {"course": course})
-    return Response(course, status=200)
+    return render(request, "course.html", {"course": course})
+    # return Response(course, status=200)
 
 
 @api_view(["POST"])
-@permission_classes([AllowAny])
+@permission_classes([SessionAuthentication])
 def create_course_evaluation(request, course_id):
     try:
         course = Course.objects.get(id=course_id)
