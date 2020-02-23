@@ -1,0 +1,13 @@
+### Variables
+
+#### local 
+@base_url = http://127.0.0.1:8000
+
+
+##강의별 평가 가져오기##
+GET {{base_url}}/course-evaluation/1
+Content-Type: application/json
+{
+    
+}
+
