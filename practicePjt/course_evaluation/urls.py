@@ -14,14 +14,14 @@ urlpatterns = [
         views.fetch_course_evaluation,
         name="fetch-course-evaluation",
     ),
-    path(
-        "update-course-evaluation/<int:evaluation_id>",
-        views.update_course_evaluation,
-        name="update-course-evaluation",
-    ),
-    path(
-        "delete-course-evaluation/<int:evaluation_id>",
-        views.delete_course_evaluation,
-        name="delete-course-evluation",
-    ),
+    # path(
+    #     "update-course-evaluation/<int:evaluation_id>",
+    #     views.update_course_evaluation,
+    #     name="update-course-evaluation",
+    # ),
+    # path(
+    #     "delete-course-evaluation/<int:evaluation_id>",
+    #     views.delete_course_evaluation,
+    #     name="delete-course-evluation",
+    # ),
 ]
