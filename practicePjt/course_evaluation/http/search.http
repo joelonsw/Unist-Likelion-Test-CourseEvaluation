@@ -5,13 +5,12 @@
 
 
 ### 문의사항 댓글 가져오기 ###
-POST  {{base_url}}/course-evaluation/test
+POST  {{base_url}}/search-course
 Content-Type: application/json
 
-# 예시
-# {
-#     "course_code": "CHM",
-#     "course_name": "",
-#     "course_professor": "",
-#     "course_semester": "20-1"
-# }
+{
+    "course_code": "CHM",
+    "course_name": "",
+    "course_professor": "",
+    "course_semester": "20-1"
+}

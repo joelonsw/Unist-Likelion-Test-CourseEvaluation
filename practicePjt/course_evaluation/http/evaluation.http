@@ -1,0 +1,15 @@
+### Variables
+
+#### local 
+@base_url = http://127.0.0.1:8000
+
+
+### 문의사항 댓글 가져오기 ###
+POST  {{base_url}}/create-course-evaluation/1
+Content-Type: application/json
+
+{
+    "grade":3,
+    "review":"리뷰작성합니다",
+    "password":1234
+}

@@ -25,13 +25,4 @@ class Evaluation(TimeStampedModel):
     grade = models.IntegerField()
     review = models.TextField()
     password = models.IntegerField(default=0000)
-        return '%s - %s' % (self.course_code, self.course_name)
-
-
-class Evaluation(TimeStampedModel):
-    course = models.ForeignKey(
-        Course, verbose_name="course", on_delete=models.CASCADE)
-    grade = models.IntegerField()
-    review = models.TextField()
-    password = models.IntegerField(default=0000, max_length=10)
 
