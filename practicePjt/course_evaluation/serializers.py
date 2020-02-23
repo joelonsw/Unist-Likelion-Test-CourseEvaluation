@@ -1,4 +1,6 @@
 from rest_framework import serializers
+from .models import Course
+from .models import Evaluation
 from fia.models import Course
 
 
@@ -13,4 +15,22 @@ class CourseSerializer(serializers.ModelSerializer):
             "course_semester",
             "created_at",
             "updated_at",
+        )
+
+
+class EvluationSerializer(serializers.ModelSerializer):
+    course = CourseSerializer(read_only=True)
+
+    class Meta:
+        model = Evaluation
+        fields = (
+            "id",
+            "course",
+            "grade",
+            "review",
+            "password",
+            "created_at",
+            "updated_at",
+        )
+
         )

@@ -2,30 +2,30 @@
 
 {% block content %}
 <div class="d-flex justify-content-center">
-    
+
     {% if update %}
-        
+
     <Form action="{% url 'update_final' evaluation.id %}">
         {% csrf_token %}
         <br>
         <h5>강의명 : {{evaluation.course.course_name}}</h5>
         <h5>교수명 : {{evaluation.course.course_professor}}</h5>
         <h5>과목코드 : {{evaluation.course.course_code}}</h5>
-        <h5>별점(5점만점) : 
+        <h5>별점(5점만점) :
             <input type="text" name="grade">
         </h5>
         <h5>
-          비밀번호 : 
-          <input type="text" name="password">
-      </h5>
+            비밀번호 :
+            <input type="text" name="password">
+        </h5>
         <h5>
             평가:
             <textarea name="review" id="" cols="40" rows="20"></textarea>
         </h5>
-        
+
         <input class="btn btn-dark" type="submit" value="제출하기">
     </Form>
-    
+
     {% else %}
 
     <Form action="{% url 'save' course.id %}">
@@ -34,23 +34,21 @@
         <h5>강의명 : {{course.course_name}}</h5>
         <h5>교수명 : {{course.course_professor}}</h5>
         <h5>과목코드 : {{course.course_code}}</h5>
-        <h5>별점(5점만점) : 
+        <h5>별점(5점만점) :
             <input type="text" name="grade">
         </h5>
         <h5>
-          비밀번호 : 
-          <input type="text" name="password">
-      </h5>
+            비밀번호 :
+            <input type="text" name="password">
+        </h5>
         <h5>
             평가:
             <textarea name="review" id="" cols="40" rows="20"></textarea>
         </h5>
-        
+
         <input class="btn btn-dark" type="submit" value="제출하기">
     </Form>
-   
-    {% endif %}
-    
+    <<<<<<< HEAD======={% endif %}>>>>>>> 6e7f93f0de6ea360fd9e9c31ad2dca93a9f06b41
 </div>
 
 

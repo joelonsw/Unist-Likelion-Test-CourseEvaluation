@@ -19,6 +19,10 @@ from django.urls import path, include
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("course_evaluation.urls")),
+
+urlpatterns = [
+    path("admin/", admin.site.urls),
+    path("", include("course_evaluation.urls")),
 ]
 from review import views
 
