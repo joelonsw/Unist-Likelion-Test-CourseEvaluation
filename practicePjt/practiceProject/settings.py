@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "fia.apps.FiaConfig",
     "import_export",
     "course_evaluation",
+    "rest_framework",
 ]
 
 MIDDLEWARE = [
