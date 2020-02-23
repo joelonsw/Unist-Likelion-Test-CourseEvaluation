@@ -1,0 +1,77 @@
+.bd-placeholder-img {
+  font-size: 1.125rem;
+  text-anchor: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+@media (min-width: 768px) {
+  .bd-placeholder-img-lg {
+    font-size: 3.5rem;
+  }
+}
+.search{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
+.searchimage{
+  width: 100vw;
+  height: 40vh;
+  position: absolute;
+  z-index: 1;
+}
+.searchpart{
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+}
+.searchline1{
+    font-size: 52px;
+    color: white;
+    text-align: center;
+    margin-top: 5vh;
+    font-family: Roboto;
+    font-weight: bold;
+}
+.searchline2{
+    font-size: 30px;
+    color: white;
+    text-align: center;
+    margin-top: 2vh;
+    font-family: Roboto;
+    font-weight: 500;
+}
+.course{
+  margin-top: 40vh;
+  display: flex;
+  width: 80vw;
+  flex-wrap: wrap;
+  margin-left: 6vw;
+}
+.coursebox{
+  margin-left: 8vw;
+  width: 12vw;
+  margin-top: 5vh;
+  border: 1px solid black;
+}
+
+.coursename{
+  padding-top: 1vh;
+  padding-left: 1vw;
+  font-size: 30px;
+  font-weight: 400;
+  font-family: Roboto;
+}
+.courseid{
+  padding-left: 1vw;
+  font-size: 20px;
+  font-family: Roboto;
+}
+.courseimg{
+  float: right;
+  padding-top: 10vh;
+}

@@ -1,7 +1,7 @@
-{% extends 'base.html' %}
+{% extends 'base2.html' %}
 
 {% block content %}
-<p>{{data}}</p>
+<p>{{course.course_name}}</p>
 <div class="d-flex justify-content-center">
     <form action="" method="POST">
         {% csrf_token %}
