@@ -5,6 +5,7 @@ from .forms import SearchForm
 
 
 def tset(request):
+
     form = SearchForm()
     return render(request, "course.html", {"form": form})
 
