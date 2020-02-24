@@ -28,7 +28,3 @@ class Evaluation(TimeStampedModel):
 
     def __str__(self):
         return self.review[:10]
-
-    def get_id(self):
-        return self.id
-
