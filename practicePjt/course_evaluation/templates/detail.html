@@ -13,6 +13,10 @@
     <div class="p-2 bd-highlight text-right">{{course.course_code}} </div>
     <div class="p-2 bd-highlight text-right">{{course.course_name}} </div>
     <div class="p-2 bd-highlight text-right">{{course.course_professor}} 교수님 </div>
+    <button class="btn btn-dark mr-3 text-white open-create-modal" data-toggle="modal" data-target="#create"
+      data-course_id="{{ course.id }}" data-CSRF="{{csrf_token}}">
+      작성하기
+    </button>
   </div>
 </div>
 
@@ -25,12 +29,13 @@
         <div class="row">
           <div class="col d-flex justify-content-start">Written at {{eval.created_at}}</div>
           <div class="col d-flex justify-content-end">
-            <a herf="" type="button" class="btn btn-info mr-3 text-white" data-toggle="modal" data-target="#update">
+            <a herf="" type="button" class="btn btn-info mr-3 text-white open-update-modal" data-toggle="modal"
+              data-target="#update" data-evaluation_id="{{ eval.id }}" data-CSRF="{{csrf_token}}">
               수정하기
             </a>
             <a class="btn btn-danger mr-3 text-white open-delete-modal" data-toggle="modal" data-target="#delete"
-              data-id="{{eval.id}}" data-CSRF="{{csrf_token}}">
-              삭제하기
+              data-evaluation_id="{{ eval.id }}" data-CSRF="{{csrf_token}}">
+              삭제하기{{eval.id}}
             </a>
           </div>
         </div>
@@ -46,10 +51,51 @@
   </div>
 </div>
 
-<div id="modal-div"></div>
+
+<!-- 작성하기 Modal -->
+<div class="modal fade" id="create" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">강의평가 작성하기</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-default">Grade</span>
+          </div>
+          <input type="text" class="form-control" id="create-grade" aria-label="Sizing example input"
+            aria-describedby="inputGroup-sizing-default">
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-default">Password</span>
+          </div>
+          <input type="text" class="form-control" id="create-password" aria-label="Sizing example input"
+            aria-describedby="inputGroup-sizing-default">
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-default">Review</span>
+          </div>
+          <textarea type="text" class="form-control" id="create-review" aria-label="Sizing example input"
+            aria-describedby="inputGroup-sizing-default"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary close-create-modal" id="close-create-modal"
+          data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary create-evaluation">Create</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- 수정하기 Modal -->
-<!-- <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -61,26 +107,41 @@
       <div class="modal-body">
         <div class="input-group mb-3">
           <div class="input-group-prepend">
-            <span class="input-group-text" id="inputGroup-sizing-default">Default</span>
+            <span class="input-group-text" id="inputGroup-sizing-default">Grade</span>
           </div>
-          <input type="text" class="form-control" aria-label="Sizing example input"
+          <input type="text" class="form-control" id="update-grade" aria-label="Sizing example input"
             aria-describedby="inputGroup-sizing-default">
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-default">Password</span>
+          </div>
+          <input type="text" class="form-control" id="update-password" aria-label="Sizing example input"
+            aria-describedby="inputGroup-sizing-default">
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-default">Review</span>
+          </div>
+          <textarea type="text" class="form-control" id="update-review" aria-label="Sizing example input"
+            aria-describedby="inputGroup-sizing-default"></textarea>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Modify</button>
+        <button type="button" class="btn btn-secondary close-update-modal" id="close-update-modal"
+          data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary update-evaluation">Modify</button>
       </div>
     </div>
   </div>
-</div> -->
+</div>
 
 <!-- 삭제하기 Modal -->
 <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">강의평가 삭제하기{{modal_evaluation.id}}</h5>
+        <h5 class="modal-title" id="exampleModalLabel">강의평가 삭제하기</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -88,45 +149,105 @@
       <div class="modal-body">
         <div class="input-group mb-3">
           <div class="input-group-prepend">
-            <span class="input-group-text" id="inputGroup-sizing-default"">Password</span>
+            <span class="input-group-text" id="inputGroup-sizing-default"">{{eval.id}}Password</span>
           </div>
-          <input type=" text" class="form-control" aria-label="Sizing example input"
-              aria-describedby="inputGroup-sizing-default" name="password">
+          <input type=" text" class="form-control" id="delete-password" aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-default">
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-secondary close-delete-modal" id="close-delete-modal"
+            data-dismiss="modal">Close</button>
           <button type="button" class="btn btn-primary delete-evaluation">Delete</button>
         </div>
       </div>
     </div>
   </div>
 
-
   <script>
+
     $(function () {
-      var evaluation_id = 0
-      var csrf_token = $(".open-delete-modal").data().CSRF;
-      $(".open-delete-modal").click(function () {
-        evaluation_id = $(this).data('id');
-      })
-      $(document).on('click', '.delete-evaluation', function () {
+      var evaluation_id
+      var csrf_token
+      // 삭제하기
+      $(document).on('click', '.open-delete-modal', function () {
+        evaluation_id = $(this).data('evaluation_id')
+        csrf_token = $(this).data().CSRF;
         console.log(evaluation_id)
+      });
+
+      $(document).on('click', '.delete-evaluation', function () {
         $.ajax({
           url: "/delete-course-evaluation" + "/" + evaluation_id,
           type: 'DELETE',
           headers: {
             "X-CSRFTOKEN": "{{ csrf_token }}"
           },
-          error: function () {
-            console.log('error')
+          data: {
+            "password": $('#delete-password').val()
+          }
+        }),
+          document.getElementById('close-delete-modal').click();
+      });
+
+      $(document).on('click', '#close-delete-modal', function () {
+        location.reload()
+      });
+
+      // 수정하기
+      $(document).on('click', '.open-update-modal', function () {
+        evaluation_id = $(this).data('evaluation_id')
+        csrf_token = $(this).data().CSRF;
+        console.log(evaluation_id)
+      });
+
+      $(document).on('click', '.update-evaluation', function () {
+        $.ajax({
+          url: "/update-course-evaluation" + "/" + evaluation_id,
+          type: 'PUT',
+          headers: {
+            "X-CSRFTOKEN": "{{ csrf_token }}"
           },
-        })
+          data: {
+            "password": $('#update-password').val(),
+            "review": $('#update-review').val(),
+            "grade": $('#update-grade').val()
+          },
+        }),
+          document.getElementById('close-update-modal').click();
+      });
+
+      $(document).on('click', '#close-update-modal', function () {
+        location.reload()
+      })
+
+      //작성하기
+
+      $(document).on('click', '.open-create-modal', function () {
+        course_id = $(this).data('course_id')
+        csrf_token = $(this).data().CSRF;
+        console.log(course_id)
+      });
+
+      $(document).on('click', '.create-evaluation', function () {
+        $.ajax({
+          url: "/create-course-evaluation" + "/" + course_id,
+          type: 'POST',
+          headers: {
+            "X-CSRFTOKEN": "{{ csrf_token }}"
+          },
+          data: {
+            "password": $('#create-password').val(),
+            "review": $('#create-review').val(),
+            "grade": $('#create-grade').val()
+          },
+        }),
+          document.getElementById('close-create-modal').click();
+      });
+
+      $(document).on('click', '#close-create-modal', function () {
+        location.reload()
       })
     });
   </script>
   {% endblock %}
-
-  $(document).on('click', '.delete-evaluation', function () {
-  document.location = "/delete-course-evaluation" + "/" + evaluation_id;
-  })
