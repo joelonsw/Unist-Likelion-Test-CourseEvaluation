@@ -25,7 +25,10 @@ SECRET_KEY = "#bsakon!(jftyacx+j0cbh^a(u&q^5#+owrr!3kpejx+0^515y"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "localhost",
+    ".ap-northeast-2.compute.amazonaws.com",
+]
 
 
 # Application definition
@@ -37,7 +40,6 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # "review.apps.ReviewConfig",
     "import_export",
     "course_evaluation",
     "rest_framework",
