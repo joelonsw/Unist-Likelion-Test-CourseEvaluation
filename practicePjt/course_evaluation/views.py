@@ -1,5 +1,7 @@
+import math
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+
+# from django.core.paginator import Paginator
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
@@ -7,12 +9,12 @@ from rest_framework.permissions import AllowAny
 from .models import Course, Evaluation
 from .serializers import CourseSerializer, EvluationSerializer
 
-def home(request):
-    course=Course.objects.all()
-    return render(request, "course.html", {"course": course})
-#     course=Course.objects
-#     return render(request, "home.html",{"course":course})
 
+@api_view(["GET"])
+@permission_classes([AllowAny])
+def home(request):
+    course = Course.objects.all()
+    return render(request, "course.html", {"course": course})
 
 
 @api_view(["POST"])
@@ -22,7 +24,9 @@ def search_course(request):
     course_name = request.data.get("course_name", "")
     course_professor = request.data.get("course_professor", "")
     course_semester = request.data.get("course_semester", "")
+
     msg = "search"
+
     course = Course.objects.all()
     if course_code != "":
         course = course.filter(course_code__contains=course_code)
@@ -32,10 +36,11 @@ def search_course(request):
         course = course.filter(course_professor__contains=course_professor)
     if course_semester != "":
         course = course.filter(course_semester__contains=course_semester)
-    course = CourseSerializer(course, many=True).data
 
-    return render(request, "course.html", {"course": course, "search":msg})
+    course = CourseSerializer(course, many=True).data
+    return render(request, "course.html", {"course": course, "search": msg,},)
     # return Response(course, status=200)
+
 
 # 강의평가 만들기
 @api_view(["POST"])
@@ -132,5 +137,5 @@ def delete_course_evaluation(request, evaluation_id):
         # return Response({"message": "evaluation deleted"}, status=200)
         return redirect("/fetch-course-evaluation/" + str(evaluation.course.id))
     else:
-        return HttpResponse("permission denide")
+        return Response({"message": "permission denide"}, status=400)
 
