@@ -1,4 +1,5 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
@@ -8,7 +9,8 @@ from .serializers import CourseSerializer, EvluationSerializer
 
 
 def home(request):
-    return render(request, "course.html")
+    course = Course.objects.all()
+    return render(request, "home.html", {"course": course})
 
 
 # 강의검색
@@ -16,6 +18,7 @@ def home(request):
 @permission_classes([AllowAny])
 def search_course(request):
     course_code = request.data.get("course_code", "")
+
     course_name = request.data.get("course_name", "")
     course_professor = request.data.get("course_professor", "")
     course_semester = request.data.get("course_semester", "")
@@ -51,7 +54,6 @@ def create_course_evaluation(request, course_id):
     evaluation = Evaluation.objects.create(
         course=course, grade=grade, review=review, password=password
     )
-
     evaluation = EvluationSerializer(evaluation).data
     return Response(evaluation, status=200)
     # return redirect("/course-evaluation/" + str(course.id))
@@ -67,25 +69,38 @@ def fetch_course_evaluation(request, course_id):
         return Response({"message": "no such objects"}, status=404)
 
     evaluation = Evaluation.objects.filter(course=course).order_by("id")
+    print(course.id)
+    course = CourseSerializer(course).data
     evaluation = EvluationSerializer(evaluation, many=True).data
-
-    return Response(evaluation, status=200)
-    # return render(request, "detail.html", {"course": course, "evaluation": evaluation})
+    # return Response(evaluation, status=200)
+    return render(request, "detail.html", {"course": course, "evaluation": evaluation},)
 
 
 # 강의평가 수정하기
 @api_view(["PUT"])
 @permission_classes([AllowAny])
 def update_course_evaluation(request, evaluation_id):
+    password = request.data.get("password")
+    grade = request.data.get("grade")
+    review = request.data.get("review", "")
+    if password == "":
+        password = -1
+    else:
+        password = int(password)
+
+    if grade == "":
+        grade = -1
+    else:
+        grade = int(grade)
 
     try:
         evaluation = Evaluation.objects.get(id=evaluation_id)
     except Evaluation.DoesNotExist:
         return Response({"message": "no such objects"}, status=404)
 
-    if request.data.get("password", -1) == evaluation.password:  # 비밀번호 확인후 맞으면 실행
-        evaluation.grade = request.data.get("grade", 3)
-        evaluation.review = request.data.get("review", "")
+    if password == evaluation.password:  # 비밀번호 확인후 맞으면 실행
+        evaluation.grade = grade
+        evaluation.review = review
         evaluation.save()
         evaluation = EvluationSerializer(evaluation).data
         return Response(
@@ -101,7 +116,13 @@ def update_course_evaluation(request, evaluation_id):
 @api_view(["DELETE"])
 @permission_classes([AllowAny])
 def delete_course_evaluation(request, evaluation_id):
-    password = request.data.get("password", -1)
+    password = request.data.get("password")
+
+    if password == "":
+        password = -1
+    else:
+        password = int(password)
+
     try:
         evaluation = Evaluation.objects.get(id=evaluation_id)
     except Evaluation.DoesNotExist:
@@ -109,16 +130,8 @@ def delete_course_evaluation(request, evaluation_id):
 
     if password == evaluation.password:
         evaluation.delete()
-        return Response({"message": "evaluation deleted"}, status=200)
-        # return redirect("/course-evaluation/" + str(evaluation.course.id))
-
+        # return Response({"message": "evaluation deleted"}, status=200)
+        return redirect("/fetch-course-evaluation/" + str(evaluation.course.id))
     else:
-        return Response({"message": "permission denied"}, status=400)
+        return HttpResponse("permission denide")
 
-
-# 강의평가 창으로 이동하기
-@api_view(["GET"])
-@permission_classes([AllowAny])
-def evaluation(request, course_id):
-    course = get_object_or_404(Course, pk=course_id)
-    return render(request, "evaluation_form.html", {"course": course})
