@@ -7,22 +7,22 @@ from rest_framework.permissions import AllowAny
 from .models import Course, Evaluation
 from .serializers import CourseSerializer, EvluationSerializer
 
-
 def home(request):
-    course = Course.objects.all()
-    return render(request, "home.html", {"course": course})
+    course=Course.objects.all()
+    return render(request, "course.html", {"course": course})
+#     course=Course.objects
+#     return render(request, "home.html",{"course":course})
 
 
-# 강의검색
+
 @api_view(["POST"])
 @permission_classes([AllowAny])
 def search_course(request):
     course_code = request.data.get("course_code", "")
-
     course_name = request.data.get("course_name", "")
     course_professor = request.data.get("course_professor", "")
     course_semester = request.data.get("course_semester", "")
-
+    msg = "search"
     course = Course.objects.all()
     if course_code != "":
         course = course.filter(course_code__contains=course_code)
@@ -34,9 +34,8 @@ def search_course(request):
         course = course.filter(course_semester__contains=course_semester)
     course = CourseSerializer(course, many=True).data
 
-    # return render(request, "course.html", {"course": course})
-    return Response(course, status=200)
-
+    return render(request, "course.html", {"course": course, "search":msg})
+    # return Response(course, status=200)
 
 # 강의평가 만들기
 @api_view(["POST"])

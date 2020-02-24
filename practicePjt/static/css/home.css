@@ -7,11 +7,11 @@
   user-select: none;
 }
 
-/* @media (min-width: 768px) {
+@media (min-width: 768px) {
   .bd-placeholder-img-lg {
     font-size: 3.5rem;
   }
-} */
+}
 .search{
   display:flex;
   flex-direction: column;
@@ -142,10 +142,11 @@ input:focus {
   border-radius: 0.25rem;
 }
 
-@media (max-width: 1023px){
-  #searchimg{
-    width: 100px;
-    height
+
+@media (max-width: 700px){
+  .resimg{
+    width: 110vw;
+    height : 50vh;
   }
   .searchline1{
     font-size:25px;

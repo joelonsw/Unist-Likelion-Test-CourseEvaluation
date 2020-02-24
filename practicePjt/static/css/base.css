@@ -38,3 +38,44 @@
     display: flex;
     justify-content: space-around;
 }
+
+@media(max-width : 700px) {
+    body {
+      height: 100vw;
+    }
+
+    #logo {
+      display: -webkit-inline-box;
+      width: 100vw !important;
+      margin-left: 13vw !important;
+    }
+
+    #upline {
+      font-size: 13px;
+      width: fit-content;
+    }
+
+    .duck {
+      margin-left: 20vw;
+    }
+
+    .logoline {
+      width: 37vw;
+    }
+
+    #res {
+      font-size: 12px;
+    }
+
+    #resfont {
+      font-size: 14px;
+    }
+
+    #res_footer {
+      margin-left: 0px;
+      display: flow-root;
+    }
+  } 
+
+
+ 

@@ -38,72 +38,30 @@
   <link rel="stylesheet" href="{% static 'css/base.css' %}">
   <meta name="msapplication-config" content="/docs/4.4/assets/img/favicons/browserconfig.xml">
   <meta name="theme-color" content="#563d7c"> -->
-
+  <link rel="stylesheet" href="{% static 'css/base.css' %}">
 
 </head>
 
-<style>
-  @media(max-width : 1023px) {
-    body {
-      height: 100vw;
-    }
-
-    #logo {
-      display: -webkit-inline-box;
-      width: 100vw !important;
-      margin-left: 13vw !important;
-    }
-
-    #upline {
-      font-size: 13px;
-      width: fit-content;
-    }
-
-    .duck {
-      margin-left: 20vw;
-    }
-
-    .logoline {
-      width: 37vw;
-    }
-
-    #res {
-      font-size: 12px;
-    }
-
-    #resfont {
-      font-size: 14px;
-    }
-
-    #res_footer {
-      margin-left: 0px;
-      display: flow-root;
-    }
-  }
-</style>
 
 <body>
 
   <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-    <div class="my-0 mr-md-auto" id="logo">
-      <div class="duck">
-        <img src="{% static 'image/duck.png' %}" alt="">
-      </div>
-      <div class="logoline">
-        <div class="logoline1">강의평가 검색은</div>
-        <div class="logoline2"> <a href="{% url 'home' %}"> 강의봤덕 </a></div>
-      </div>
+    <div class = "my-0 mr-md-auto" id="logo">
+        <div class="duck">
+            <img src="{% static 'image/duck.png' %}" alt="">
+        </div>
+        <div class="logoline">
+            <div class="logoline1">강의평가 검색은</div>
+            <div class="logoline2"> <a href="{% url 'home' %}"> 강의봤덕 </a></div>
+        </div>
     </div>
-    <nav class="my-2 my-md-0 mr-md-3" id="upline">
-      <a class="p-2 text-dark"
-        href="https://unist-kor.unist.ac.kr/campus-life/academic-info/academic-calendar/">학사일정</a>
+    <nav class="my-2 my-md-0 mr-md-3" id = "upline">
+      <a class="p-2 text-dark" href="https://unist-kor.unist.ac.kr/campus-life/academic-info/academic-calendar/">학사일정</a>
       <a class="p-2 text-dark" href="https://portal.unist.ac.kr/irj/portal">UNIST 포탈</a>
 
       <a class="p-2 text-dark" href="https://github.com/chocohotsix/unist-likelion-CourseEval/">제작자</a>
     </nav>
   </div>
-
-
 
   {% block content%}
 
@@ -113,15 +71,14 @@
 
 
   <footer id="res" class="pt-4 my-md-5 pt-md-5 border-top">
-    <div id="res_footer" class="row">
+    <div id="res_footer"class="row">
       <div class="col-12 col-md">
         <img class="mb-2" src="/docs/4.4/assets/brand/bootstrap-solid.svg" alt="" width="24" height="24">
       </div>
       <div class="col-6 col-md">
         <h5 id="resfont">Academical Plan</h5 id="resfont">
         <ul class="list-unstyled text-small">
-          <li><a class="text-muted"
-              href="https://unist-kor.unist.ac.kr/campus-life/academic-info/academic-calendar/">학사일정</a></li>
+          <li><a class="text-muted" href="https://unist-kor.unist.ac.kr/campus-life/academic-info/academic-calendar/">학사일정</a></li>
         </ul>
       </div>
       <div class="col-6 col-md">
@@ -140,5 +97,4 @@
     </div>
   </footer>
 </body>
-
 </html>

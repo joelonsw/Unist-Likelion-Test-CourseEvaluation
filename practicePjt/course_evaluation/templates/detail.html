@@ -15,7 +15,7 @@
     <div class="p-2 bd-highlight text-right">{{course.course_professor}} 교수님 </div>
     <button class="btn btn-dark mr-3 text-white open-create-modal" data-toggle="modal" data-target="#create"
       data-course_id="{{ course.id }}" data-CSRF="{{csrf_token}}">
-      작성하기
+      작성하기
     </button>
   </div>
 </div>
@@ -35,7 +35,7 @@
             </a>
             <a class="btn btn-danger mr-3 text-white open-delete-modal" data-toggle="modal" data-target="#delete"
               data-evaluation_id="{{ eval.id }}" data-CSRF="{{csrf_token}}">
-              삭제하기{{eval.id}}
+              삭제하기
             </a>
           </div>
         </div>
