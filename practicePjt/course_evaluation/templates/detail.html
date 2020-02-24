@@ -173,7 +173,6 @@
       $(document).on('click', '.open-delete-modal', function () {
         evaluation_id = $(this).data('evaluation_id')
         csrf_token = $(this).data().CSRF;
-        console.log(evaluation_id)
       });
 
       $(document).on('click', '.delete-evaluation', function () {
@@ -185,6 +184,9 @@
           },
           data: {
             "password": $('#delete-password').val()
+          },
+          error: function () {
+            alert("비밀번호가 틀렸습니다");
           }
         }),
           document.getElementById('close-delete-modal').click();
@@ -198,7 +200,6 @@
       $(document).on('click', '.open-update-modal', function () {
         evaluation_id = $(this).data('evaluation_id')
         csrf_token = $(this).data().CSRF;
-        console.log(evaluation_id)
       });
 
       $(document).on('click', '.update-evaluation', function () {
@@ -213,6 +214,9 @@
             "review": $('#update-review').val(),
             "grade": $('#update-grade').val()
           },
+          error: function () {
+            alert("비밀번호가 틀렸습니다");
+          }
         }),
           document.getElementById('close-update-modal').click();
       });
@@ -226,7 +230,6 @@
       $(document).on('click', '.open-create-modal', function () {
         course_id = $(this).data('course_id')
         csrf_token = $(this).data().CSRF;
-        console.log(course_id)
       });
 
       $(document).on('click', '.create-evaluation', function () {
@@ -241,6 +244,9 @@
             "review": $('#create-review').val(),
             "grade": $('#create-grade').val()
           },
+          error: function () {
+            alert("비밀번호가 틀렸습니다");
+          }
         }),
           document.getElementById('close-create-modal').click();
       });

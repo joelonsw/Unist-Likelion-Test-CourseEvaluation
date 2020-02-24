@@ -14,10 +14,6 @@ local_settings.py
 db.sqlite3
 db.sqlite3-journal
 
-
-.DS_Store
-credentials.csv
-*.pem
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
