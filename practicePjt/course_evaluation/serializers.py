@@ -3,6 +3,9 @@ from .models import Course, Evaluation
 
 
 class CourseSerializer(serializers.ModelSerializer):
+    created_at = serializers.DateTimeField(read_only=True, format="%Y-%m-%d %H:%M")
+    updated_at = serializers.DateTimeField(read_only=True, format="%Y-%m-%d %H:%M")
+
     class Meta:
         model = Course
         fields = (
@@ -18,6 +21,8 @@ class CourseSerializer(serializers.ModelSerializer):
 
 class EvluationSerializer(serializers.ModelSerializer):
     course = CourseSerializer(read_only=True)
+    created_at = serializers.DateTimeField(read_only=True, format="%Y-%m-%d %H:%M")
+    updated_at = serializers.DateTimeField(read_only=True, format="%Y-%m-%d %H:%M")
 
     class Meta:
         model = Evaluation
